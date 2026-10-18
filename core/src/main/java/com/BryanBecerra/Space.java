@@ -30,6 +30,7 @@ public class Space extends ScreenAdapter {
     private final BitmapFont font = new BitmapFont();
     private final Array<Star> stars = new Array<>();
     private Rocket yourRocket;
+    private shootingStar yourShootingStar;
     private final Counter scoreCounter;
     private boolean gameOver;
 
@@ -66,8 +67,10 @@ public class Space extends ScreenAdapter {
         gameOver = false;
         scoreCounter.setValue(0);
         yourRocket = new Rocket(this);
+        yourShootingStar = new shootingStar(this);
         stage.addActor(scoreCounter);
         stage.addActor(yourRocket);
+        stage.addActor(yourShootingStar);
         addAsteroids(START_ASTEROIDS);
     }
 
@@ -120,6 +123,7 @@ public class Space extends ScreenAdapter {
         assets.load("rocket.png", Texture.class);
         assets.load("rocketWithThrust.png", Texture.class);
         assets.load("wave.png", Texture.class);
+        assets.load("shootingStar.png", Texture.class);
         assets.finishLoading();
 
         Pixmap pixmap = new Pixmap(580, 250, Pixmap.Format.RGBA8888);
