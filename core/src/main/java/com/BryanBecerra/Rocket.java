@@ -92,5 +92,9 @@ public final class Rocket extends SmoothMover {
                 return;
             }
         }
+        if (this.getBounds().overlaps(space.getShootingStar().getBounds())) {
+            space.addScore(10);
+            space.getShootingStar().reset();
+        }
     }
 }

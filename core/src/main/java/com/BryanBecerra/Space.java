@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -76,6 +77,10 @@ public class Space extends ScreenAdapter {
 
     Stage getStage() {
         return stage;
+    }
+    
+    public shootingStar getShootingStar() {
+        return yourShootingStar;
     }
 
     void addScore(int amount) {

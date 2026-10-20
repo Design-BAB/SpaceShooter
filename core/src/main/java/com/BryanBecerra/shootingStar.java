@@ -26,13 +26,21 @@ public class shootingStar extends Actor{
         bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
     }
     
+    public Rectangle getBounds(){
+        return this.bounds;
+    }
+    
     @Override
     public void act(float delta) {
         if (space.isGameOver() == false) {
-            if (bounds.x > space.WORLD_SIZE + 50) bounds.x = 0; 
+            if (bounds.x > space.WORLD_SIZE + 50) this.reset();
             var howMuch = 100 * delta;
             bounds.x = bounds.x + howMuch;
         }
+    }
+    
+    public void reset() {
+        bounds.x = 0;
     }
     
     @Override
