@@ -40,6 +40,7 @@ public class shootingStar extends Actor{
     }
     
     public void reset() {
+        bounds.y = randomer.nextInt((int)space.WORLD_SIZE);
         bounds.x = 0;
     }
     
