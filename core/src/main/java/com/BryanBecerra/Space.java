@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class Space extends ScreenAdapter {
     public static final float WORLD_SIZE = 900;
     private static final int START_ASTEROIDS = 6;
+    private static final float MENU_POS = 170;
     
     private final AssetManager assets = new AssetManager();
     private Texture gameOverPanelTexture;
@@ -34,14 +35,15 @@ public class Space extends ScreenAdapter {
     private shootingStar yourShootingStar;
     private final Counter scoreCounter;
     private boolean gameOver;
+    private boolean gameStart = true;
+    private SpriteBatch menuBatch;
 
     public Space() {
         loadAssets();
         createStars(150);
+        menuBatch = new SpriteBatch();
         scoreCounter = new Counter(font);
         //stage is the batch draw
-        startGame();
-
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
@@ -59,6 +61,15 @@ public class Space extends ScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(Color.BLACK);
         drawStars();
+        if (this.gameStart == true) {
+            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+                this.gameStart = false;
+                startGame();
+            }
+            menuBatch.begin();
+            menuBatch.draw((Texture) assets.get("menu.png"), MENU_POS, MENU_POS);
+            menuBatch.end();
+        }
         stage.act(delta);
         stage.draw();
     }
@@ -66,6 +77,7 @@ public class Space extends ScreenAdapter {
     private void startGame() {
         stage.clear();
         gameOver = false;
+        gameStart = false;
         scoreCounter.setValue(0);
         yourRocket = new Rocket(this);
         yourShootingStar = new shootingStar(this);
@@ -121,6 +133,7 @@ public class Space extends ScreenAdapter {
     }
 
     private void loadAssets() {
+        assets.load("menu.png", Texture.class);
         assets.load("bullet.png", Texture.class);
         assets.load("explosion-big.png", Texture.class);
         assets.load("explosion.png", Texture.class);
@@ -167,6 +180,7 @@ public class Space extends ScreenAdapter {
         starRenderer.dispose();
         font.dispose();
         batch.dispose();
+        menuBatch.dispose();
         gameOverPanelTexture.dispose();
         assets.dispose();
     }
